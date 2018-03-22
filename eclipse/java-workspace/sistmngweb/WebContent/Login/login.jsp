@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="sistmngweb.* ,java.util.*"%>
 
 <%
@@ -10,7 +9,10 @@
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
 
-	Login l = new Login.LoginBuild(id, pw).build();
+	Login l = new Login.LoginBuilder().
+			setId(id).
+			setPw(pw).
+			build();
 
 	//로그인 인증 여부 액션 추가
 

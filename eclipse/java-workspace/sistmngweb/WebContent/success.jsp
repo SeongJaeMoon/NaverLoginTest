@@ -4,24 +4,42 @@
 <%
 	//session 내장 객체를 이용한 로그인 인증 확인
 	Object sess = session.getAttribute("loginInfo");
-	if (sess == null) {
+	Object naverSess = session.getAttribute("naverInfo");
+	if (sess == null && naverSess == null) {
 		//로그인 하지 않은 사용자 접근 상태
 		//->접근 차단(강제 페이지 전환)
 		response.sendRedirect("accessdenied.jsp");
 	}
-%>	
+%>
 <%
 	//JSP code
 	request.setCharacterEncoding("UTF-8");
 	StringBuilder sb = new StringBuilder();
 	String contextRoute = request.getContextPath();
+	
 	//로그인 사용자 개인정보 확인
 	String id = "";
 	String name_ = "";
-	if (sess != null) {
-		Login loginInfo = (Login)sess;
-		id =  loginInfo.getId();
+	
+	String admin = request.getParameter("role");
+	System.out.println(admin);
+	if(admin == null){
+		admin = "";
+	}else {
+		if(admin.equals("1")){
+			admin = "관리자로 로그인";	
+		}
+	}
+		
+	if (sess != null && sess instanceof Login) {
+		Login loginInfo = (Login) sess;
+		id = loginInfo.getId();
 		name_ = loginInfo.getUsers().getName_();
+	}
+	if (naverSess != null && naverSess instanceof NaverResponse){
+		NaverResponse naverResponse = (NaverResponse) naverSess;
+		id = naverResponse.getEmail();
+		name_ = naverResponse.getNickname();
 	}
 %>
 <!DOCTYPE html>
@@ -33,9 +51,6 @@
 
 <title>SIST_쌍용교육센터</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
 div#input:hover, div#output:hover {
@@ -43,6 +58,14 @@ div#input:hover, div#output:hover {
 		rgba(0, 0, 0, 0.19);
 }
 </style>
+
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
+	charset="utf-8"></script>
+	
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <!-- jQuery library -->
 <script
@@ -55,7 +78,7 @@ div#input:hover, div#output:hover {
 
 <script>
 	$(document).ready(function() {
-		
+
 	});
 </script>
 </head>
@@ -65,8 +88,9 @@ div#input:hover, div#output:hover {
 
 		<div class="panel page-header" style="text-align: center;">
 			<h1 style="font-size: xx-large;">
-				<a href="adminbooklist.jsp"><img src="<%=contextRoute%>/resources/sist_logo.png"
-					alt="sist_logo.png"></a> 회원관리 <small>v1.0</small> <span
+				<a href="adminbooklist.jsp"><img
+					src="<%=contextRoute%>/resources/sist_logo.png" alt="sist_logo.png"></a>
+				회원관리 <small>v1.0</small> <span
 					style="font-size: small; color: #777777;"></span>
 			</h1>
 		</div>
@@ -75,8 +99,11 @@ div#input:hover, div#output:hover {
 			<div class="container-fluid">
 				<div class="navbar-header"></div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="<%=contextRoute%>/Login/success.jsp">회원 관리</a></li>
-					<li><a href="<%=contextRoute%>/Login/logout.jsp">[<%=name_%>/<%=id%>]로그 아웃</a></li>
+					<li class="active"><a
+						href="<%=contextRoute%>/Login/success.jsp">회원 관리</a></li>
+					<li><a href="<%=contextRoute%>/Login/logout.jsp">[<%=name_%>/<%=id%>/<%=admin%>]로그
+							아웃
+					</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -98,7 +125,7 @@ div#input:hover, div#output:hover {
 						</tr>
 					</thead>
 					<tbody>
-					
+
 					</tbody>
 				</table>
 
@@ -119,7 +146,7 @@ div#input:hover, div#output:hover {
 						<button type="button" class="btn btn-default">
 							Next <span class="glyphicon glyphicon-step-forward"></span>
 						</button>
-						
+
 						<!-- 검색 기준 선택 항목 추가 -->
 						<select class="form-control" id="key" name="key">
 							<option value="name_">Name</option>

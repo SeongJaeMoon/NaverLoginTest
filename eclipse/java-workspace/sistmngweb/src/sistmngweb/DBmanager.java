@@ -5,13 +5,13 @@ import java.util.*;
 
 public class DBmanager<T>{
 	
-	private OnDBlistener<T> onDBlistner;
+	private OnDBListener<T> onDBlistner;
 	
-	public void setDBlistner(OnDBlistener<T> onDBlistner) {
+	public void setDBlistner(OnDBListener<T> onDBlistner) {
 		this.onDBlistner = onDBlistner;
 	}
 	
-	interface OnDBlistener<T>{
+	interface OnDBListener<T>{
 		List<T> select(T t) throws ClassNotFoundException, SQLException;
 		int delte(String id) throws ClassNotFoundException, SQLException;
 		int update(T t) throws ClassNotFoundException, SQLException;

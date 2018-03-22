@@ -1,25 +1,37 @@
 package sistmngweb;
 
 public class Login {
-	private final String id, pw;
+	private String id, pw;
 	private Users users;
-
-	private Login(LoginBuild build) {
+	private NaverResponse naver;
+	
+	private Login(LoginBuilder build) {
 		this.id = build.id;
 		this.pw = build.pw;
 		this.users = build.users;
+		this.naver = build.naver;
 	}
 
-	public static class LoginBuild {
-		private final String id, pw;
+	public static class LoginBuilder {
+		private String id, pw;
 		private Users users;
-
-		public LoginBuild(String id, String pw) {
+		private NaverResponse naver;
+		
+		public LoginBuilder setId(String id) {
 			this.id = id;
-			this.pw = pw;
+			return this;
 		}
-
-		public LoginBuild setUsers(Users users) {
+		public LoginBuilder setPw(String pw) {
+			this.pw = pw;
+			return this;
+		}
+		
+		public LoginBuilder setNaver(NaverResponse naver) {
+			this.naver = naver;
+			return this;
+		}
+		
+		public LoginBuilder setUsers(Users users) {
 			this.users = users;
 			return this;
 		}
@@ -33,6 +45,10 @@ public class Login {
 		return users;
 	}
 
+	public NaverResponse getNaver() {
+		return naver;
+	}
+	
 	public String getId() {
 		return id;
 	}

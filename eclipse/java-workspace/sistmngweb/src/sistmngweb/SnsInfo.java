@@ -1,39 +1,65 @@
 package sistmngweb;
 
-import java.time.*;
-
 public class SnsInfo {
-	private String sns_id, sns_type, sns_name, sns_profiie;
-	private LocalDate sns_connect_date;
 	
-	public String getSns_id() {
-		return sns_id;
+	private String idx, email, age, nick_name, profile_image, gender, birthday;
+
+	public String getIdx() {
+		return idx;
 	}
-	public void setSns_id(String sns_id) {
-		this.sns_id = sns_id;
+
+	public void setIdx(String idx) {
+		this.idx = idx;
 	}
-	public String getSns_type() {
-		return sns_type;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setSns_type(String sns_type) {
-		this.sns_type = sns_type;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getSns_name() {
-		return sns_name;
+
+	public String getAge() {
+		return age;
 	}
-	public void setSns_name(String sns_name) {
-		this.sns_name = sns_name;
+
+	public void setAge(String age) {
+		this.age = age;
 	}
-	public String getSns_profiie() {
-		return sns_profiie;
+
+	public String getNick_name() {
+		return nick_name;
 	}
-	public void setSns_profiie(String sns_profiie) {
-		this.sns_profiie = sns_profiie;
+
+	public void setNick_name(String nick_name) {
+		this.nick_name = nick_name;
 	}
-	public LocalDate getSns_connect_date() {
-		return sns_connect_date;
+
+	public String getProfile_image() {
+		return profile_image;
 	}
-	public void setSns_connect_date(LocalDate sns_connect_date) {
-		this.sns_connect_date = sns_connect_date;
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
 	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	
+	
 }
+
