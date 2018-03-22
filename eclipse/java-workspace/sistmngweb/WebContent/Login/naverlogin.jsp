@@ -122,7 +122,7 @@
 		//DB에 데이터가 존재함.
 		session.setAttribute("naverInfo", naver);
 		String admin = "";
-		if (selectRet.equals("51363689")) {
+		if (selectRet.equals("")) {
 			admin = "1";
 		}
 		response.sendRedirect(contextRoute + "/success.jsp?naver=" + naverRet + "&role?=" + admin);
