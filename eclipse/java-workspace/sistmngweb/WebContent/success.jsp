@@ -20,26 +20,35 @@
 	//로그인 사용자 개인정보 확인
 	String id = "";
 	String name_ = "";
+	String admin = "";
 	
-	String admin = request.getParameter("role");
-	System.out.println(admin);
-	if(admin == null){
-		admin = "";
-	}else {
-		if(admin.equals("1")){
-			admin = "관리자로 로그인";	
-		}
-	}
-		
+	//GET방식 getParameter 오류 수정 필요.
+	//String admin = request.getParameter("role");
+	//System.out.println(admin);
+	//if(admin == null){
+	//	admin = "";
+	//}else {
+	//	if(admin.equals("1")){
+	//		admin = "관리자로 로그인";	
+	//	}
+	//}
+	
+	String logoutAtag = ""; //로그아웃 a태그에 들어갈 경로
 	if (sess != null && sess instanceof Login) {
 		Login loginInfo = (Login) sess;
 		id = loginInfo.getId();
 		name_ = loginInfo.getUsers().getName_();
+		logoutAtag = contextRoute+"/Login/Logout.jsp";
 	}
 	if (naverSess != null && naverSess instanceof NaverResponse){
 		NaverResponse naverResponse = (NaverResponse) naverSess;
 		id = naverResponse.getEmail();
 		name_ = naverResponse.getNickname();
+		uniqueAdmin = (String)naverResponse.getId();
+		logoutAtag = "https://nid.naver.com/nidlogin.logout";
+		if(uniqueAdmin.equals("/*admin unique value*/"){
+		admin = "관리자로 로그인 중입니다."
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -101,7 +110,7 @@ div#input:hover, div#output:hover {
 				<ul class="nav navbar-nav">
 					<li class="active"><a
 						href="<%=contextRoute%>/Login/success.jsp">회원 관리</a></li>
-					<li><a href="<%=contextRoute%>/Login/logout.jsp">[<%=name_%>/<%=id%>/<%=admin%>]로그
+					<li><a href="<%=logoutAtag%>">[<%=name_%>/<%=id%>/<%=admin%>]로그
 							아웃
 					</a></li>
 				</ul>
