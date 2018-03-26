@@ -4,9 +4,15 @@
 	//JSP code
 	request.setCharacterEncoding("UTF-8");
 	StringBuilder sb = new StringBuilder();
+	//ID로 로그인한 경우
+
+	Object sess = session.getAttribute("loginInfo");
+	if(sess != null){
+		session.removeAttribute("loginInfo);
+	}
 	
 	//로그아웃 액션 추가
-	session.invalidate();
+	//session.invalidate();
 	
 	
 	//강제 페이지 전환
