@@ -38,16 +38,16 @@
 		Login loginInfo = (Login) sess;
 		id = loginInfo.getId();
 		name_ = loginInfo.getUsers().getName_();
-		logoutAtag = contextRoute+"/Login/Logout.jsp";
+		logoutAtag = contextRoute+"/Login/logout.jsp";
 	}
 	if (naverSess != null && naverSess instanceof NaverResponse){
 		NaverResponse naverResponse = (NaverResponse) naverSess;
 		id = naverResponse.getEmail();
 		name_ = naverResponse.getNickname();
-		uniqueAdmin = (String)naverResponse.getId();
+		String uniqueAdmin = (String)naverResponse.getId();
 		logoutAtag = "https://nid.naver.com/nidlogin.logout";
-		if(uniqueAdmin.equals("/*admin unique value*/"){
-		admin = "관리자로 로그인 중입니다."
+		if(uniqueAdmin.equals("51363689")){
+			admin = "관리자로 로그인 중입니다.";
 		}
 	}
 %>
@@ -97,8 +97,7 @@ div#input:hover, div#output:hover {
 
 		<div class="panel page-header" style="text-align: center;">
 			<h1 style="font-size: xx-large;">
-				<a href="adminbooklist.jsp"><img
-					src="<%=contextRoute%>/resources/sist_logo.png" alt="sist_logo.png"></a>
+				<a href="adminbooklist.jsp"><img src="<%=contextRoute%>/resources/sist_logo.png" alt="sist_logo.png"></a>
 				회원관리 <small>v1.0</small> <span
 					style="font-size: small; color: #777777;"></span>
 			</h1>
@@ -110,8 +109,7 @@ div#input:hover, div#output:hover {
 				<ul class="nav navbar-nav">
 					<li class="active"><a
 						href="<%=contextRoute%>/Login/success.jsp">회원 관리</a></li>
-					<li><a href="<%=logoutAtag%>">[<%=name_%>/<%=id%>/<%=admin%>]로그
-							아웃
+					<li><a href="<%=logoutAtag%>">[<%=name_%>/<%=id%>/<%=admin%>]로그아웃
 					</a></li>
 				</ul>
 			</div>
